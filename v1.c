@@ -1,11 +1,12 @@
 #include <stdio.h>
 
+int stringCmpIgnore(char *string1,char *string2); 
 void setZeroes(int **a);
 // void set(char *requiredCell);
-// int get(char *enteringCell);
+int get(char *enteringCell, int **a);
 void print(int **a);
-// void export(char *fileName);
-// void import(char *fileName);
+// void export(int **a);
+// void import(int **a);
 void execute();
 
 int main(int argc, char const *argv[]){
@@ -15,30 +16,60 @@ int main(int argc, char const *argv[]){
 	return 0;
 }
 
+
 void execute(){
 	int **a = (int **)malloc(sizeof(int *) * 10);
 	for(int i = 0; i < 10; i++){
 		a[i] = (int *)malloc(sizeof(int) * 10);
 	}
-	// int choice;
-	// char *cellNumber = (char *)malloc(sizeof(char) * 10);
-	// while(1){
-	// 	printf("The options available are:\n");
-	// 	printf("1.Add the value in the sheet.\n");
-	// 	printf("2.Remove the value in the sheet.\n");
-	// 	printf("3.Print the sheet.\n");
-	// 	printf("4.Import the sheet.\n");
-	// 	printf("5.Export the sheet.\n");
-	// 	printf("Enter your choice: ");
-	// 	scanf("%d", &choice);
-	// 	switch(choice){
-	// 		case 1: printf("Enter the cell in which you want to add the value: ");
-	// 				scanf("%s", cellNumber);
-	// 				set(cellNumber);
-	// 	}
-	// }
 	setZeroes(a);
+	
+	a[5][4] = 5;
+	while(1){
+		char *command = (char *)malloc(sizeof(char) * 30);
+		int f = 0;
+		printf("Enter the command: ");
+		scanf(" %[^\n]s",command);
+		printf("%s", command);
+		if(!stringCmpIgnore(command, "get")){
+			f = 1;
+			get(command + 4, a);
+		}
+		else if(!stringCmpIgnore(command, "set")){
+			f = 1;
+			set(command + 4, a);
+		}
+		else if(!stringCmpIgnore(command, "print")){
+			f = 1;
+			print(a);
+		}
+		else if(!stringCmpIgnore(command, "import")){
+			f = 1;
+			import(a);
+		}
+		else if(!stringCmpIgnore(command, "export")){
+			f = 1;
+			export(a);
+		}
+		else{
+			printf("Please enter a valid input.\n");
+		}
+		if(f == 0){
+			printf("Please enter a valid input.\n");
+		}
+		free(command);
+	}
+
 	print(a);
+}
+
+int stringCmpi (char *string1,char *string2){
+    int i = 0, difference = 0;
+    for(i = 0; string1[i] != '\0'; i++){
+        if( toupper(s1[i]) != toupper(s2[i]) )
+            return 1;           
+    }
+    return 0;
 }
 
 void setZeroes(int **a){
@@ -49,13 +80,28 @@ void setZeroes(int **a){
 	}
 }
 
-// void set(char *requiredCell){
+// void set(char *requiredCell, int **board){
 
+	
 // }
 
-// int get(char *enteringCell){
-
-// }
+int get(char *requiredCell, int **a){
+	int x, y;
+	if(requiredCell[0] > 96){
+		x = requiredCell[0] - 'a';
+	}
+	else{
+		x = requiredCell[0] - 'A';	
+	}
+	y = (requiredCell[1] - '0');
+	if(requiredCell[2] != '\0' || y > 9 || x > 9){
+		printf("Please enter correct input");
+		return -1;
+	} 
+	else{
+		return a[y][x]; 
+	}
+}
 
 void print(int **a){
 	printf("The data in the excel sheet is \n");
@@ -65,7 +111,7 @@ void print(int **a){
 	}
 	printf("\n");
 	for(int i = 0; i < 10; i++){
-		printf("%d\t", i + 1);
+		printf("%d\t", i);
 		for(int j = 0; j < 10; j++){
 			printf("%d\t", a[i][j]);
 		}
@@ -73,10 +119,13 @@ void print(int **a){
 	}
 }
 
-// void export(char *fileName){
+// void export(int **a){
 
 // }
 
-// void import(char *fileName){
+// void import(int **a){
 
 // }
+
+
+
