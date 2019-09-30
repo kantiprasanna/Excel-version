@@ -99,22 +99,14 @@ void setZeroes(int **a){
 // }
 
 int get(char *requiredCell, int **a){
-	// int x, y;
-	// if(requiredCell[0] > 96){
-	// 	x = requiredCell[0] - 'a';
-	// }
-	// else{
-	// 	x = requiredCell[0] - 'A';	
-	// }
-	// y = (requiredCell[1] - '0');
-	int y, x;
-	char c;
-	printf("%s\n", requiredCell);;
-	sscanf(requiredCell, "%c%d", &c, &y);
-	x = c - 'A';
-	printf("%c %d\n", c, y);
-	x = 5;
-	y = 3;
+	int x, y;
+	if(requiredCell[0] > 96){
+		x = requiredCell[0] - 'a';
+	}
+	else{
+		x = requiredCell[0] - 'A';	
+	}
+	y = (requiredCell[1] - '0');
 	if(y > 9 || x > 9){
 		printf("Please enter correct input");
 		return -1;
