@@ -30,30 +30,30 @@ void execute(){
 		int f = 0;
 		printf("Enter the command: ");
 		scanf(" %[^\n]s",command);
-		printf("%s", command);
+		printf("%s %d\n", command, !stringCmpIgnore(command, "get"));
+
 		if(!stringCmpIgnore(command, "get")){
+			printf("entered if\n");
 			f = 1;
 			get(command + 4, a);
 		}
-		else if(!stringCmpIgnore(command, "set")){
-			f = 1;
-			set(command + 4, a);
-		}
+		// else if(!stringCmpIgnore(command, "set")){
+		// 	f = 1;
+		// 	set(command + 4, a);
+		// }
 		else if(!stringCmpIgnore(command, "print")){
 			f = 1;
 			print(a);
 		}
-		else if(!stringCmpIgnore(command, "import")){
-			f = 1;
-			import(a);
-		}
-		else if(!stringCmpIgnore(command, "export")){
-			f = 1;
-			export(a);
-		}
-		else{
-			printf("Please enter a valid input.\n");
-		}
+		// else if(!stringCmpIgnore(command, "import")){
+		// 	f = 1;
+		// 	import(a);
+		// }
+		// else if(!stringCmpIgnore(command, "export")){
+		// 	f = 1;
+		// 	export(a);
+		// }
+		
 		if(f == 0){
 			printf("Please enter a valid input.\n");
 		}
@@ -63,10 +63,10 @@ void execute(){
 	print(a);
 }
 
-int stringCmpi (char *string1,char *string2){
+int stringCmpIgnore (char *string1,char *string2){
     int i = 0, difference = 0;
-    for(i = 0; string1[i] != '\0'; i++){
-        if( toupper(s1[i]) != toupper(s2[i]) )
+    for(i = 0; string1[i] != ' '; i++){
+        if( toupper(string1[i]) != toupper(string2[i]) )
             return 1;           
     }
     return 0;
@@ -81,20 +81,41 @@ void setZeroes(int **a){
 }
 
 // void set(char *requiredCell, int **board){
+// 	int x, y;
+// 	if(requiredCell[0] > 96){
+// 		x = requiredCell[0] - 'a';
+// 	}
+// 	else{
+// 		x = requiredCell[0] - 'A';	
+// 	}
+// 	y = (requiredCell[1] - '0');
+// 	if(requiredCell[2] != '=' || y > 9 || x > 9){
+// 		printf("Please enter correct input");
+// 	} 
+// 	else{
 
+// 	}
 	
 // }
 
 int get(char *requiredCell, int **a){
-	int x, y;
-	if(requiredCell[0] > 96){
-		x = requiredCell[0] - 'a';
-	}
-	else{
-		x = requiredCell[0] - 'A';	
-	}
-	y = (requiredCell[1] - '0');
-	if(requiredCell[2] != '\0' || y > 9 || x > 9){
+	// int x, y;
+	// if(requiredCell[0] > 96){
+	// 	x = requiredCell[0] - 'a';
+	// }
+	// else{
+	// 	x = requiredCell[0] - 'A';	
+	// }
+	// y = (requiredCell[1] - '0');
+	int y, x;
+	char c;
+	printf("%s\n", requiredCell);;
+	sscanf(requiredCell, "%c%d", &c, &y);
+	x = c - 'A';
+	printf("%c %d\n", c, y);
+	x = 5;
+	y = 3;
+	if(y > 9 || x > 9){
 		printf("Please enter correct input");
 		return -1;
 	} 
