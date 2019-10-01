@@ -100,20 +100,34 @@ void setZeroes(int **a){
 
 int get(char *requiredCell, int **a){
 	int x, y;
-	if(requiredCell[0] > 96){
-		x = requiredCell[0] - 'a';
-	}
-	else{
-		x = requiredCell[0] - 'A';	
-	}
-	y = (requiredCell[1] - '0');
+	// if(requiredCell[0] > 96){
+	// 	x = requiredCell[0] - 'a';
+	// }
+	// else{
+	// 	x = requiredCell[0] - 'A';	
+	// }
+	// y = (requiredCell[1] - '0');
+	// if(y > 9 || x > 9){
+	// 	printf("Please enter correct input");
+	// 	return -1;
+	// } 
+	// else{
+	// 	return a[y][x]; 
+	// }
+	char *ch = (char *)malloc(sizeof(char) * 10);
+	int z = sscanf(requiredCell, "%[^\n]s%d", ch, &y);
+	printf("%d is z and %d is y\n", z, y);
+	x = ch[0] - 'A';
+	printf("%s\n", ch);
+	printf("%d %d\n", x, y);
 	if(y > 9 || x > 9){
-		printf("Please enter correct input");
+		printf("Please enter correct input.\n");
 		return -1;
 	} 
 	else{
 		return a[y][x]; 
 	}
+
 }
 
 void print(int **a){
