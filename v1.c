@@ -5,7 +5,7 @@ void setZeroes(int **a);
 void set(char *requiredCell, int **a);
 int get(char *enteringCell, int **a);
 void print(int **a);
-// void export(int **a);
+void export(int **a, char *fileName);
 void import(int **a, char *fileName);
 void execute();
 
@@ -24,7 +24,6 @@ void execute(){
 	}
 	setZeroes(a);
 	
-	a[5][4] = 5;
 	while(1){
 		char *command = (char *)malloc(sizeof(char) * 30);
 		int f = 0;
@@ -48,10 +47,10 @@ void execute(){
 			f = 1;
 			import(a, command + 7);
 		}
-		// else if(!stringCmpIgnore(command, "export")){
-		// 	f = 1;
-		// 	export(a);
-		// }
+		else if(!stringCmpIgnore(command, "export")){
+			f = 1;
+			export(a, command + 7);
+		}
 		
 		if(f == 0){
 			printf("Please enter a valid input.\n");
@@ -133,9 +132,18 @@ void print(int **a){
 	}
 }
 
-// void export(int **a){
-
-// }
+void export(int **a, char *fileName){
+	FILE *temp = fopen("temp", "w+");
+	for(int i = 0; i < 10; i++){
+		for(int j = 0; j < 10; j++){
+			fprintf(temp, "%d, ", a[i][j]);
+		}
+	}
+	fclose(temp);
+	remove(fileName);
+	rename("temp", fileName);
+	printf("Exported file\n");
+}
 
 void import(int **a, char *fileName){
 	printf("%s\n", fileName);
@@ -151,7 +159,7 @@ void import(int **a, char *fileName){
 		}
 		for (int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
-				if(!fscanf(fptr, "%d,", &b[i][j])){
+				if(!fscanf(fptr, "%d, ", &b[i][j])){
 					printf("File is not accepted\n");
 						f = 1;
 						break;
@@ -166,6 +174,7 @@ void import(int **a, char *fileName){
 			}	
 		}
 		fclose(fptr);
+		printf("Imported file\n");
 	}
 	
 }
