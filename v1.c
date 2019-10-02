@@ -2,7 +2,7 @@
 
 int stringCmpIgnore(char *string1,char *string2); 
 void setZeroes(int **a);
-// void set(char *requiredCell);
+void set(char *requiredCell, int **a);
 int get(char *enteringCell, int **a);
 void print(int **a);
 // void export(int **a);
@@ -30,7 +30,7 @@ void execute(){
 		int f = 0;
 		printf("Enter the command: ");
 		scanf(" %[^\n]s",command);
-		printf("%s %d\n", command, !stringCmpIgnore(command, "get"));
+		// printf("%s %d\n", command, !stringCmpIgnore(command, "get"));
 
 		if(!stringCmpIgnore(command, "get")){
 			f = 1;
@@ -40,7 +40,7 @@ void execute(){
 			f = 1;
 			set(command + 4, a);
 		}
-		else if(!stringCmpIgnore(command, "print")){
+		else if(!strcmpi(command, "print")){
 			f = 1;
 			print(a);
 		}
@@ -79,23 +79,23 @@ void setZeroes(int **a){
 	}
 }
 
-// void set(char *requiredCell, int **board){
-// 	int x, y;
-// 	if(requiredCell[0] > 96){
-// 		x = requiredCell[0] - 'a';
-// 	}
-// 	else{
-// 		x = requiredCell[0] - 'A';	
-// 	}
-// 	y = (requiredCell[1] - '0');
-// 	if(requiredCell[2] != '=' || y > 9 || x > 9){
-// 		printf("Please enter correct input");
-// 	} 
-// 	else{
-
-// 	}
+void set(char *requiredCell, int **a){
+	int x, y;
+	if(requiredCell[0] > 96){
+		x = requiredCell[0] - 'a';
+	}
+	else{
+		x = requiredCell[0] - 'A';	
+	}
+	y = (requiredCell[1] - '0');
+	if(requiredCell[2] != '=' || y > 9 || x > 9){
+		printf("Please enter correct input");
+	} 
+	else{
+		a[y][x] = atoi(requiredCell + 3);
+	}
 	
-// }
+}
 
 int get(char *requiredCell, int **a){
 	int x, y;
