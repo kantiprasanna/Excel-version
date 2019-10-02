@@ -6,7 +6,7 @@ void set(char *requiredCell, int **a);
 int get(char *enteringCell, int **a);
 void print(int **a);
 // void export(int **a);
-// void import(int **a);
+void import(int **a, char *fileName);
 void execute();
 
 int main(int argc, char const *argv[]){
@@ -44,10 +44,10 @@ void execute(){
 			f = 1;
 			print(a);
 		}
-		// else if(!stringCmpIgnore(command, "import")){
-		// 	f = 1;
-		// 	import(a);
-		// }
+		else if(!stringCmpIgnore(command, "import")){
+			f = 1;
+			import(a, command + 7);
+		}
 		// else if(!stringCmpIgnore(command, "export")){
 		// 	f = 1;
 		// 	export(a);
@@ -137,9 +137,38 @@ void print(int **a){
 
 // }
 
-// void import(int **a){
-
-// }
+void import(int **a, char *fileName){
+	printf("%s\n", fileName);
+	FILE *fptr = fopen(fileName, "r");
+	if(fptr == NULL){
+		printf("File not found.\n");
+	}
+	else{
+		int f = 0;
+		int **b = (int **)malloc(sizeof(int *) * 10);
+		for(int i = 0; i < 10; i++){
+			b[i] = (int *)malloc(sizeof(int) * 10);
+		}
+		for (int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+				if(!fscanf(fptr, "%d,", &b[i][j])){
+					printf("File is not accepted\n");
+						f = 1;
+						break;
+				}
+			}
+		}
+		if(f == 0){
+			for(int i = 0; i < 10; i++){
+				for(int j = 0; j < 10; j++){
+					a[i][j] = b[i][j];
+				}
+			}	
+		}
+		fclose(fptr);
+	}
+	
+}
 
 
 
